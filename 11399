@@ -1,0 +1,31 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+
+	int n = 0;
+	int t[1000] = {0};
+	int b = 0;
+	int time = 0;
+	int w = 0;
+	cin >> n;
+	for(int i = 0; i < n; i++)
+		cin >> t[i];
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - 1; j++) {
+			if (t[j] > t[j + 1]) {
+				b = t[j];
+				t[j] = t[j + 1];
+				t[j + 1] = b;
+			}
+		}
+	}
+	b = 1;
+	for (int i = n - 1; i >= 0; i--) {
+		time = b * t[i] + time;
+		b++;
+	}
+	cout << time << endl;
+	return 0;
+}  // 제일 작은걸 n만큼 곱한다
