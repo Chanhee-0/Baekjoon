@@ -1,0 +1,33 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+
+	int n, k;
+	int count = 0;
+	int arr[10] = {0};
+	cin >> n >> k;
+	
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	for (int i = n - 1; i >= 0; i--) {
+		while (1) {
+			if (k >= arr[i] && (k - arr[i]) >= 0) {
+				k -= arr[i];
+				count++;
+			}
+			else
+				break;
+		}
+	}
+	cout << count << endl;
+	return 0;
+}
+/*
+1. 비교작업; k를 큰 동전 순으로 비교
+2. 같거나 작으면 0보다 작지 않아 질때 까지 빼기
+3. 더 이상 빼지지 않으면 다음 작은 동전으로 빼기
+4. 0이 될 때까지 반복
+*/
