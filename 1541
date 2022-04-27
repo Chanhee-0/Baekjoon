@@ -1,0 +1,52 @@
+#include<iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	ios::sync_with_stdio(false);
+	vector<int>v;
+	bool f = false;
+	int ans = 0;
+	int check = 1;
+	string s;
+	cin >> s;
+	while (1) {
+		if (check == 0)
+			break;
+		v.push_back(stoi(s));
+		check = 0;
+		for (int i = 1; i < s.size(); i++) {
+			if (isdigit(s[i]) == 0) {
+				s.erase(0, i);
+				check++;
+				break;
+			}
+		}
+	}
+	for (int i : v) {
+		if (i < 0) {
+			f = true;
+			ans += i;
+		}
+		else if (i > 0 && f == true) {
+			ans -= i;
+		}
+		else
+			ans += i;
+	}
+	cout << ans;
+	return 0;
+}
+/*
+case 1
+숫자를 검사하는 isdigit() 활용
+
+case 2
+숫자를 추출하는 stoi() 활용
+
+stoi로 추출 로 검사 erase()로 삭제 -> 반복
+음수 뒤에 양수가 있으면 다음 음수가 나오기 전까지 다 음수로 바꿈
+*/
