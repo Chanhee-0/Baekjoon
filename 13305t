@@ -1,0 +1,158 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int main()
+{
+
+	ios::sync_with_stdio(false);
+
+	int n = 0;
+	long long won = 0;
+	long long sec; // section 구간
+	vector<int> chp; // 가격이 낮아지는 도시 위치
+	long long cheep = 1000000001;
+	cin >> n;
+	n -= 1;
+	long long* km = new long long[n]; // 거리 동적 할당
+	long long* co = new long long[n]; // 가격 동적 할당
+	for (int i = 0; i < n; i++)
+		cin >> km[i];
+	for (int i = 0; i < n; i++)
+		cin >> co[i];
+	cin >> sec;
+
+	for (int i = 0; i < n - 1; i++) { // 가격이 싸지는 도시의 위치 을 기록
+		if (co[i] < cheep) {
+			chp.push_back(i);
+			cheep = co[i];
+		}
+	}
+	chp.push_back(n - 1); // 마지막 도시의 위치 기록
+	if (chp.size() <= 2) { // 첫 가격이 제일 싸거나  마지막가격 빼고 다 싼 경우
+		sec = 0;
+		for (int j = 0; j < n - 1; j++) // 마지막을 뺀 모든 거리 합
+			sec += km[j];
+		won += sec * co[0] + km[n - 1] * co[n - 1]; // 마지막꺼 따로 더해줌
+	}
+	else {
+		for (int i = 1; i < chp.size(); i++) {
+			sec = 0;
+			for (int j = chp[i - 1]; j < chp[i]; j++) { // 값 싸지기 전까지의 거리 합
+				sec += km[j];
+				if (i == chp.size() - 1) // 마지막 기록일 경우 마지막 거리를 더해줌
+					sec += km[n - 1];
+			}
+			won += sec * co[chp[i - 1]]; // 구간 거리의 합 * 싸지기 전 연료 가격
+		}
+	}
+
+	cout << won;
+
+	delete[] km;
+	delete[] co;
+
+	return 0;
+}
+
+#include<iostream>
+#include <limits.h>
+
+using namespace std;
+
+int n = 0;
+long long won = 0;
+int cheep;
+long long km[100001];
+long long co[100001];
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> n;
+
+	for (int i = 0; i < n - 1; i++)
+		cin >> km[i];
+	for (int i = 0; i < n; i++)
+		cin >> co[i];
+
+	won = km[0] * co[0];
+	cheep = co[0];
+	for (int i = 1; i < n - 1; i++) {
+		if (co[i] < cheep)
+			cheep = co[i];
+		won += cheep * km[i];
+	}
+
+	cout << won;
+
+	return 0;
+}
+
+/*
+1. 가격이 싸지는 도시의 위치를 벡터에 넣는다.
+2. 벡터가 위치값 a를 반환하면 값 싸지기 전까지의 거리 합 * 싸지기 전의 기름 가격
+3. 마지막에는 마지막 거리를 더해 계산
+틀림
+1. 첫가격이 제일 쌀때 오류 있었음 -> 벡터의 사이즈를 확인하여 해결
+2. 첫가격 이후 마지막 가격이 더 쌀때 경계가 나눠지지 않아 오류 -> 따로 더해줌
+
+ex1)
+4
+ 2 3 1  거리
+5 2 4 1 가격
+
+0 1 2 입력
+2 3 1 거리
+5 2 4 가격
+
+v -> 0 1 2 벡터 입력
+0 5*2 -> 5*2 = 10
+1~2 2*4 -> 2*(3+1) = 8
+won = 18
+
+ex2)
+4
+ 3 3 4
+1 1 1 1
+
+0 1 2
+3 3 4
+1 1 1
+v -> 0 2
+0 1*10 -> 1*(3+3+4) = 10
+won = 10
+
+ex3)
+6
+ 2 3 1 2 2  거리
+5 3 4 2 1 2 가격
+
+0 1 2 3 4 입력
+2 3 1 2 2 거리
+5 3 4 2 1 가격
+
+v -> 0 1 3 4 벡터 입력
+0 5*2 -> 5*2 = 10
+1~2 3*4 -> 3*(3+1) = 12
+3~4 2*4 -> 2*(2+2) = 8
+won = 30
+
+ex4)
+4
+ 2 2 2
+2 3 1 1
+
+2 2 2
+2 3 1
+
+v -> 0 2
+0 2*4 -> 2*(2+2) = 8
+2 2*1 -> 2*1 = 2
+won = 10
+
+1,000,000,000,000,000,000
+*/
