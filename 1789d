@@ -8,7 +8,7 @@ int main() {
 	cout.tie(NULL);
 
 	unsigned int s;
-	unsigned int n = 0;
+	long long n = 0;
 	unsigned int i;
 	cin >> s;
 
@@ -25,6 +25,7 @@ int main() {
 /*
 1. s에서 1부터 차례대로 뺀다.
 2. s가 n보다 작거나 같아질 경우 브레이크
+3. 모든 변수를 unsigned int로 할때 다 틀렸지만 n을 long long으로 바꾸니 맞음.
 1 - 1            1 1
 2 - 2            1    2
 3 - 1 2          2 3
