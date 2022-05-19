@@ -3,12 +3,13 @@
 #include<algorithm>
 
 using namespace std;
+
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	int t, n, ft, st,  cnt;
+	int t, n, ft, st, cnt;
 	int vol[20];
 	vector<pair<int, int>> v;
 
@@ -24,7 +25,7 @@ int main() {
 		for (int j = 0; j < vol[i]; j++)
 			cout << v[j].first << " " << v[j].second << endl;
 		for (int j = 1; j < vol[i]; j++) {
-			if (v[j].second < v[0].second)
+			if (v[j].second < v[0].second && v[j].second < v[vol[i] - 1].second)
 				cnt++;
 		}
 		vol[i] = cnt;
@@ -36,10 +37,9 @@ int main() {
 	return 0;
 }
 /*
-1946 신입 사원
 1. 벡터로 페어 만듦
 2. 첫번째 시험을 이용하여 정렬
-3. 첫번째 시험을 기준을 2등부터는 두번째 시험이 위에 있는 사람보다 성적이 작은지 판별
+3. 첫번째 시험을 기준을 2등부터는 두번째 시험이 위에 있는 사람과 마지막 사람보다 성적이 작은지 판별
 4. num[i]에 그대로 기록하고 벡터 초기화
 5. 반복
 */
