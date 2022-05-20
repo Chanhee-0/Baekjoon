@@ -1,0 +1,38 @@
+#include<iostream>
+#include<array>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, box;
+	long long cnt = 0;
+	array <int, 100000> card;
+
+	cin >> n;
+
+	for (int i = 0; i < n; i++)
+		cin >> card[i];
+
+	sort(card.begin(), card.begin() + n);
+
+	box = card[0];
+	for (int i = 1; i < n; i++) {
+		cnt += box + card[i];
+		box = box + card[i];
+	}
+	cout << cnt;
+
+	return 0;
+}
+/*
+1715 카드 정렬하기
+1. 정렬
+2. 전의 결과 + 이번거
+3. 반복
+10 20 30 40 -> (10+20)+(30+30)+(60+40)=190
+*/
