@@ -36,3 +36,63 @@ int main() {
 3. 반복
 10 20 30 40 -> (10+20)+(30+30)+(60+40)=190
 */
+#include<iostream>
+#include<list>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, box;
+	long long cnt = 0;
+	list<int> card;
+	list<int>::iterator liter;
+
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> box;
+		card.push_back(box);
+	}
+	card.sort();
+	cout << endl;
+
+	while (card.size() > 1) {
+		cnt += card.front() + (card.front() + 1); // 10 20 30시 10 + 11이 돼버림
+		box = card.front() + (card.front() + 1);
+		card.push_back(box);
+		card.pop_front();
+		card.pop_front();
+		for (liter = card.begin(); liter != card.end(); ++liter) {
+			cout << *liter << endl;
+		}
+	}
+	while (1) { // 박스의 자리를 찾는다.
+		liter = card.begin();
+		if (box > *liter)
+			liter++;
+		else {
+			card.insert(liter, box);
+			break;
+		}
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+1715 카드 정렬하기
+1. 정렬
+2. 전의 결과 + 이번거
+3. 반복
+1 2 7 -> 3 7 (3 -> 10 (13
+1 2 7 8 9 -> 3 7 8 9(3 -> 
+1 2 4 5 -> 3 4 5 (3 -> 5 7 (12 -> 12 (24
+5 6 7 8 -> 7 8 11 (11 -> 11 15 (26 -> 26 (52
+1 2 7 8 -> 7 8 3 (3 -> 3 15 (18 -> 18 (36
+1 2 7 8 -> 3 7 8 (3 -> 8 10 (13 -> 18 (31
+*/
