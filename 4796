@@ -1,0 +1,30 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int a, b, c, cnt, result;
+
+	for (int i = 0; ; i++) {
+		cin >> a >> b >> c;
+		if(a == 0 && b == 0 && c == 0)
+			return 0;
+		result = c / b * a;
+		cnt = c % b;
+		if (cnt >= a)
+			result += a;
+		else
+			result += cnt;
+		cout << "Case " << i + 1 << ": " << result << endl;
+
+	}
+}
+/*
+4796 캠핑
+if문으로 return 0; 을 만들어주지 않았을때도 0 0 0 이 들어가면 작동을 중지했었다.
+0 0 0을 입력하면 왜 다음은 없는걸까?
+*/
