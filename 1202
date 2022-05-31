@@ -1,0 +1,51 @@
+#include<list>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, k, we, pri, cnt = 0;
+	list<int> c;
+	list<int>::iterator liter;
+	vector<pair<int, int>> v;
+
+	cin >> n >> k;
+	for (int i = 0; i < n; i++) {
+		cin >> we >> pri;
+		v.push_back(make_pair(pri, we));
+	}
+	for (int i = 0; i < k; i++) {
+		cin >> we;
+		c.push_back(we);
+	}
+
+	sort(v.rbegin(), v.rend());
+	c.sort();
+	c.reverse();
+
+	for (int i = 0; i < n; i++) {
+		if (c.size() == 0)
+			break;
+		for (liter = c.begin(); liter != c.end(); liter++ ) {
+			if (v[i].second <= *liter) {
+				cnt += v[i].first;
+				c.erase(liter);
+				break;
+			}
+		}
+	}
+	cout << cnt;
+
+	return 0;
+}
+/*
+1202 보석 도둑
+1. 보석은 가격과 가방의 무게를 내림차순으로 정렬
+2. 가격이 높은 보석부터 가방의 가벼운 무게부터 훑어가며 가방의 무게보다 낮으면 가방 무게 pop
+3. 가방의 size가 0이 되면 종료
+시간 초과
+*/
