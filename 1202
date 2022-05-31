@@ -26,32 +26,18 @@ int main() {
 		c.push_back(we);
 	}
 
-	sort(v.rbegin(), v.rend());
-	c.sort();
-	cout << endl;
-	for (int i = 0; i < n; i++) {
-		cout << v[i].first << " " << v[i].second << endl;
-	}
-	cout << endl << "가방" << endl;
-	for (liter = c.begin(); liter != c.end(); liter++) {
-		cout << *liter << " ";
-	}
-	cout << endl << endl;
+	sort(v.rbegin(), v.rend()); // 가격 기준 내림차순으로 정렬
+	c.sort(); // 가방 무게 기준 오름차순으로 정렬
 
 	for (int i = 0; i < n; i++) {
 		if (c.size() == 0) // 가방이 없으면 멈춤
 			break;
 		else if (v[i].second > c.back()) // 제일 수용 무게가 큰 가방보다 보석이 무거우면 넘김
 			continue;
-		for (liter = c.begin(); liter != c.end(); liter++ ) {
+		for (liter = c.begin(); liter != c.end(); liter++ ) { // 가벼운 가방부터 참조하며 보석의 무게가 가방의 무게보다 낮다면 가격을 더해주고 가방 삭제
 			if (v[i].second <= *liter) {
 				cnt += v[i].first;
 				c.erase(liter);
-				cout << endl << "가방" << endl;
-				for (liter = c.begin(); liter != c.end(); liter++) {
-					cout << *liter << " ";
-				}
-				cout << endl << endl;
 				break;
 			}
 		}
@@ -62,10 +48,15 @@ int main() {
 }
 /*
 1202 보석 도둑
+가방 삭제
 1. 보석은 가격은 내림차순으로 가방의 무게는 오름차순으로 정렬
-2. 가격이 높은 보석부터 가방의 낮은 무게부터 훑어가며 가방의 무게보다 낮으면 가방 무게 pop
+2. 가격이 높은 보석부터 가방의 낮은 무게부터 참조하며 가방의 무게보다 낮으면 가방 pop
 3. 가방의 size가 0이 되면 종료
-시간 초과
+ -> 시간 초과
+보석 삭제
+1. 보석과 가방을 무게 기준 오름차순한다.
+2. 보석의 무게가 가방 무게를 넘지 않은 범위 내에서 가장 큰 가격의 보석을 반환 후 삭제
+3. 반복
 5 2
 100 100
 50 100
