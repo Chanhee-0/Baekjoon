@@ -1,1 +1,1 @@
-# BaekjoonGreedy
+# Baekjoon
