@@ -1,0 +1,43 @@
+#include<iostream>
+#include<string>
+#include<cmath>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	string a, b, c;
+	int cnt1, cnt2 = 0;
+
+	cin >> a;
+	cin >> b;
+	c = "56";
+
+	for (int i = 0; i < a.size(); i++) {
+		if (a[i] == c[0] || a[i] == c[1]) {
+			a.replace(i, 1, "5");
+			cnt2 += pow(10, a.size() - i - 1);
+		}
+	}
+	cnt1 = stoi(a);
+	for (int i = 0; i < b.size(); i++) {
+		if (b[i] == c[0] || b[i] == c[1]) {
+			b.replace(i, 1, "5");
+			cnt2 += pow(10, b.size() - i - 1);
+		}
+	}
+	cnt1 += stoi(b);
+	cnt2 += cnt1;
+
+	cout << cnt1 << " " << cnt2;
+
+	return 0;
+}
+/*
+2864 5와 6의 차이
+1. 5와 6의 자리를 찾고 5로 바꿔서 cnt1에 저장
+2. 5, 6 의 단윗수를 cnt2에 저장
+*/
