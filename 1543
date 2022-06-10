@@ -1,0 +1,38 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	string a, b;
+	int cnt = 0;
+
+	getline(cin, a);
+	getline(cin, b);
+	
+	while (1) {
+		if (a.find(b) <= a.size()) {
+			cnt++;
+			a.replace(a.find(b), b.size(), ".");
+		}
+		else
+			break;
+	}
+	cout << cnt;
+
+	return 0;
+}
+/*
+1543 문서 검색
+1. string a에서 b에 해당하는 값을 찾고 지운다.
+2. 쓰레기값이 나오기 전까지 반복.
+cin이 공백을 받지 않아 틀림 공백을 무시하기 위해 cin.ignore();을 입력해 주고 getlin을 활용한다.
+aaaa, a 입력 시 처음에 a가 두번 없어지는 상황 발생 -> 반복되는 문자가 있는 경우 처음에 맨 앞에 하나가 없어지는 경우가 생김
+cin.ignore(); 때문에 입력시 하나가 사라지는 거였다. -> 삭제하고 실행해보니 지금까지의 반례는 정답이 나오지만 또 틀림
+aabb, ab 입력 시 가운데 ab가 사라지고 남은 ab가 한번 더 찾아지는 경우가 있었다. -> erase 대신 replace로 찾은 곳을 .으로 바꿔줌
+
+*/
