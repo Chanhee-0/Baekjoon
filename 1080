@@ -71,12 +71,6 @@ int main() {
 */
 #include<iostream>
 #include<string>
-#include<list>
-#include<vector>
-#include<array>
-#include<queue>
-#include<set>
-#include<map>
 
 using namespace std;
 
