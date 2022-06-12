@@ -1,11 +1,6 @@
 #include<iostream>
 #include<string>
-#include<list>
 #include<vector>
-#include<array>
-#include<queue>
-#include<set>
-#include<map>
 
 using namespace std;
 
@@ -73,4 +68,88 @@ int main() {
 1. 처음부터 비교해서 다를 때 여유가 되면 거기 부터 되지 않으면 처음을 찾아 다 바꿔줌
 2. 비교
 벡터와 스트링의 결합 신세계
+*/
+#include<iostream>
+#include<string>
+#include<list>
+#include<vector>
+#include<array>
+#include<queue>
+#include<set>
+#include<map>
+
+using namespace std;
+
+vector <string> va;
+vector <string> vb;
+string str;
+
+void change(int x, int y) {
+	str = "01";
+	int xn = x + 3;
+	int ym = y + 3;
+	for (int k = x; k < xn; k++) {
+		for (int l = y; l < ym; l++) {
+			if (va[k][l] == str[0])
+				va[k][l] = str[1];
+			else
+				va[k][l] = str[0];
+		}
+	}
+}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int  n , m, xn, ym, cnt = 0;
+
+	cin >> n >> m;
+
+	for (int i = 0; i < n; i++) {
+		cin >> str;
+		va.push_back(str);
+	}
+	for (int i = 0; i < n; i++) {
+		cin >> str;
+		vb.push_back(str);
+	}
+
+	str = "01";
+	for (int i = 0; i < n; i++) {
+		if (va[i] == vb[i])
+			continue;
+		for (int j = 0; j < m; j++) {
+			if (va[i][j] != vb[i][j]) {
+				if (n < 3 || m < 3) {
+					cout << "-1";
+					return 0;
+				}
+				xn = i + 3;
+				ym = j + 3;
+				if (xn > n || ym > m) {
+					cout << "-1";
+					return 0;
+				}
+				change(i, j);
+				cnt++;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		if (va[i] != vb[i]) {
+			cout << "-1";
+			return 0;
+		}
+	}
+	cout << cnt;
+
+	return 0;
+}
+/*
+1080 행렬
+1. 처음부터 비교해서 다를 때 여유가 되면 거기 부터 되지 않으면 처음을 찾아 다 바꿔줌
+2. 비교
+벡터와 스트링의 결합 신세계
+change 함수 밖으로 뺀 것도 
 */
