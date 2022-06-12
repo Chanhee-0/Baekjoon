@@ -6,81 +6,71 @@
 #include<queue>
 #include<set>
 #include<map>
-#include<cstdio>
 
 using namespace std;
-vector <int> va;
-vector <int> vb;
-int aa[50][50];
-int ab[50][50];
-void change(int n, int m) {
-	for (int i = n; i < n + 3; i++) {
-		for (int j = m; j < m + 3; j++) {
-			if (aa[i][j] == 0)
-				aa[i][j] = 1;
-			else
-				aa[i][j] = 0;
-		}
-	}
-}
+
 int main() {
-	// ios::sync_with_stdio(false);
+	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	
-
-	int n, m, x = 0, y = 0;
-	int cnt = 0;
+	int  n , m, xn, ym, cnt = 0;
+	vector <string> va;
+	vector <string> vb;
+	string str;
 
 	cin >> n >> m;
 
 	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> x;
-			va.push_back(x);
-		}
+		cin >> str;
+		va.push_back(str);
 	}
 	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> x;
-			vb.push_back(x);
-		}
+		cin >> str;
+		vb.push_back(str);
 	}
+
+	str = "01";
 	for (int i = 0; i < n; i++) {
+		if (va[i] == vb[i])
+			continue;
 		for (int j = 0; j < m; j++) {
-			if (aa[i][j] != ab[i][j]) {
-				if (i <= n - 3)
-					x = i;
-				else if (i == n - 2)
-					x = i - 1;
-				else if (i == n - 1)
-					x = i - 2;
-				if (j <= m - 3)
-					y = j;
-				else if (j == m - 2)
-					y = j - 1;
-				else if (j == m - 1)
-					y = j - 2;
-				change(x, y);
+			if (va[i][j] != vb[i][j]) {
+				xn = i + 3;
+				ym = j + 3;
+				if (n < 3 || m < 3) {
+					cout << "-1";
+					return 0;
+				}
+				if(xn > n || ym > m) {
+					cout << "-1";
+					return 0;
+				}
+				for (int k = i; k < xn; k++) {
+					for (int l = j; l < ym; l++) {
+						if (va[k][l] == str[0])
+							va[k][l] = str[1];
+						else
+							va[k][l] = str[0];
+					}
+				}
 				cnt++;
 			}
 		}
 	}
 	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			if (aa[i][j] != ab[i][j])
-				cout << "-1";
-			else
-				cout << cnt;
+		if (va[i] != vb[i]) {
+			cout << "-1";
+			return 0;
 		}
 	}
-
+	cout << cnt;
 
 	return 0;
 }
 /*
 1080 행렬
-1. 처음부터 비교해서 다를 때 여유가 되면 거기 부터 되지않으면 중간을 찾아 다 바꿔줌
+1. 처음부터 비교해서 다를 때 여유가 되면 거기 부터 되지 않으면 처음을 찾아 다 바꿔줌
 2. 비교
+벡터와 스트링의 결합 신세계
 */
