@@ -1,0 +1,59 @@
+#include<iostream>
+#include<string>
+#include<list>
+#include<vector>
+#include<array>
+#include<queue>
+#include<set>
+#include<map>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int  n, var, cnt = 0, num;
+	multiset<int> ms;
+	multiset<int>::iterator iter;
+
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		ms.insert(var);
+	}
+
+	for (int i = 1; i < 4; i++) {
+		if (ms.find(i) == ms.end()) {
+			cout << i;
+			return 0;
+		}
+	}
+	for (int i = 7; i < 1000000; i*=2) {
+		if (ms.find(i) == ms.end()) {
+			num = i / 2;
+			break;
+		}
+	}
+	for (iter = ms.begin(); iter != ms.lower_bound(num); iter++) {
+		cnt += *iter;
+	}
+	cnt += num + 1;
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+2437 저울
+1. 다 컨테이너에 넣어두고 작은 수부터 뺀다.
+2. 1 2 3이 존재하는 경우 4 5 6이 가능해진다.
+3. 7 * 2^i <- 식으로 해당되지 않는 값을 찾고 그 전 값(14가 없는경우 7, 28이 없는 경우 14) 아래의 모든 수를 더해준 다음값이 답이다.
+1 2 4 8
+7
+3 1 6 2 7 30 1
+1 1 2 3 6 7 30 -> 14가 없음 7 아래의 모든 값 더해주면 20 답은 다음 수인 21
+1 2 3 4 5 6 7 8 9 10 11
+*/
