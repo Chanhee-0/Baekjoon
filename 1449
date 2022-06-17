@@ -1,0 +1,42 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int  n , l, var, cnt = 1;
+	priority_queue<int, vector<int>, greater<int> > pq;
+
+	cin >> n >> l;
+
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		pq.push(var);
+	}
+
+	var = pq.top();
+	pq.pop();
+	while (pq.size() > 0) {
+		if (l > pq.top() - var) {
+			pq.pop();
+		}
+		else {
+			cnt++;
+			var = pq.top();
+			pq.pop();
+		}
+	}
+	
+	cout << cnt;
+
+	return 0;
+}
+/*
+1449 수리공 항승
+1. 다 컨테이너에 넣어두고 작은 수부터 뺀다.
+2. 첫 구멍부터 테이프 길이가 가능한 구멍까지 빼주고 넘어갈경우 테이프의 갯수++
+*/
