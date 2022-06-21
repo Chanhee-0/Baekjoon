@@ -1,0 +1,49 @@
+#include<iostream>
+#include<set>
+#include<map>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, s, t, var, cnt = 0;
+	multimap<int, int> mm;
+	map<int, int>::iterator iter;
+
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> s >> t;
+		mm.insert(make_pair(s, t));
+	}
+
+	while (mm.size() > 0) {
+		var = mm.begin()->second;
+		mm.erase(mm.begin());
+		if (mm.size() == 0) {
+			cnt++;
+			break;
+		}
+		for (iter = mm.upper_bound(var - 1); iter != mm.end(); iter++) {
+			if (var <= iter->first) {
+				var = iter->second;
+				mm.erase(iter);
+			}
+		}
+		cnt++;
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+11000 강의실 배정
+1. 모두 벡터에 넣어 시작 시간 기준으로 오름차순 정렬
+2. 시작하는 시간이 가장 빠른 강의의 끝나는 시간을 저장하고 삭제
+3. 탐색하며 저장한 끝나는 시간과 같거나 큰 강의를 찾고 찾으면 끝나는 시간 갱신 후 삭제
+*/
