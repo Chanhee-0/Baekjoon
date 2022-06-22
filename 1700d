@@ -1,0 +1,56 @@
+#include<iostream>
+#include<set>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, k, var, cnt = 0;
+	set<int> s;
+
+	cin >> n >> k;
+
+	while (k > 0) {
+		cin >> var;
+		if (s.size() == n) {
+			if (s.find(var) == s.end()) {
+				auto iter = s.end();
+				iter--;
+				s.erase(*(iter));
+				cnt++;
+				s.insert(var);
+			}
+		}
+		else
+			s.insert(var);
+		k--;
+		for (auto iter = s.begin(); iter != s.end(); ++iter)
+			cout << *iter << " ";
+		cout << endl;
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+1700 멀티탭 스케줄링
+1. set에 전기용품 번호를 넣을때 set의 사이즈(멀티탭 구멍수)가 n과 같은지(다 찼는지) 확인하고 n과 같다면
+ 안에 같은 번호가 존재하는지 찾은 뒤 있다면 패스하고 없다면 마지막 숫자를 빼고 넣는다.
+
+틀림 -> 우선 순위가 낮은 것을 빼는게 아니라 뒤에 사용량이 적거나 없는 것을 먼저 빼는 문제였다.
+
+1. 멀티탭이 비었고 중복이 없으면 꽂는다.
+2. 멀티탭이 꽉 찼고 중복이 없다면 멀티탭에 꽂혀있는 숫자와 중복 두개가 나올때까지 뒤를 탐색 2 3 4 - 5 2 5 3 4 (다시
+3. 두개가 나오면 없는 것을 뽑는다.
+3 14
+1 4 3 2 5 4 3 2 5 3 4 2 3 4
+1 4 3
+2 4 3 1
+5 4 3 2
+5 2 3 3
+4 2 3 4
+*/
