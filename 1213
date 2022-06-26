@@ -1,0 +1,31 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, var, cnt = 0;
+	int alpha[27] = { 0 };
+	string pro;
+	string ans;
+
+	cin >> pro;
+
+	for (int i = 0; i < pro.size(); i++) {
+		alpha[int(pro[i]) - 65]++;
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+1213 팰린드롬 만들기
+1. 알파벳 아스키 코드 정수로 바꿔서 해당하는 문자열 번호에 ++
+2. 앞에서 부터 홀수인지 짝수인지 검사하며 하나 씩 빼면서 뒤로 가고 홀수 하나는 따로 저장
+3. 끝에 도착하면 홀수 끼고 다시 앞으로 가면서 알파벳 입력
+*/
