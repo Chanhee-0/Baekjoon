@@ -29,3 +29,66 @@ int main() {
 2. 앞에서 부터 홀수인지 짝수인지 검사하며 하나 씩 빼면서 뒤로 가고 홀수 하나는 따로 저장
 3. 끝에 도착하면 홀수 끼고 다시 앞으로 가면서 알파벳 입력
 */
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int alpha[27] = { 0 };
+	int mid = 30;
+	string pro;
+	string ans;
+
+	cin >> pro;
+
+	for (int i = 0; i < pro.size(); i++) {
+		alpha[int(pro[i]) - 65]++;
+	}
+	for (int i = 0; i < 26; i++) {
+		if (alpha[i] == 0)
+			continue;
+		if (alpha[i] % 2 == 1) {
+			if (mid < 30) {
+				cout << "I'm Sorry Hansoo";
+				return 0;
+			}
+			else {
+				mid = i;
+				alpha[i] /= 2;
+				for (int j = 0; j < alpha[i]; j++) {
+					ans.push_back(i + 65);
+				}
+			}
+		}
+		if (alpha[i] % 2 == 0) {
+			alpha[i] /= 2;
+			for (int j = 0; j < alpha[i]; j++) {
+				ans.push_back(i + 65);
+			}
+		}
+	}
+	if(mid < 30)
+		ans.push_back(mid + 65);
+	for (int i = 25; i >= 0; i--) {
+		if (alpha[i] == 0)
+			continue;
+		for (int j = 0; j < alpha[i]; j++) {
+			ans.push_back(i + 65);
+		}
+	}
+	cout << ans;
+
+	return 0;
+}
+/*
+1213 팰린드롬 만들기
+1. 알파벳 아스키 코드 정수로 바꿔서 해당하는 문자열 번호에 ++
+2. 앞에서 부터 홀수인지 짝수인지 검사하며 하나 씩 빼면서 뒤로 가고 홀수 하나는 따로 저장
+3. 끝에 도착하면 홀수 끼고 다시 앞으로 가면서 알파벳 입력
+답 다 잘나오고 반례도 정답 나옴 근데 23퍼에서 오답
+*/
