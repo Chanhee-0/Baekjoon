@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int N, K, MAX = 0, var, cnt = 0;
+string s, t1, t2;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin  >> N >> K >> s;
+	
+	for (int i = 0; i < N - K + 1; i++) {
+		if (s[i] > MAX) {
+			MAX = s[i];
+			var = i;
+		}
+	}
+
+	s.erase(0, var);
+	var = K - var;
+
+	for (int i = 1; i < s.size() - 1; i++) {
+		if (var == 0) break;
+		if (s[i] < s[i + 1]) {
+			s.erase(i, 1);
+			var--;
+		}
+	}
+
+	cout << s;
+
+	return 0;
+}
+/*
+2812 크게 만들기
+1. 최대로 지울수 있는 자리까지 탐색하며 제일 큰 수 앞까지 지운다.
+2. 남은 숫자들 더 지워야 한다면 앞에서 부터 검사하며 뒷숫자보다 작으면 지운다.
+4 2
+1924
+10 4
+4177252841
+*/
