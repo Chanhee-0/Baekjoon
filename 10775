@@ -1,0 +1,57 @@
+#include<iostream>
+
+using namespace std;
+
+bool visited[10001];
+int g, p, var, max = 0, cnt = 0;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> g >> p;
+	
+	for (int i = 0; i < p; i++) {
+		if (visited[0]) {
+			cnt--;
+			break;
+		}
+		cin >> var;
+		if (!visited[var]) {
+			visited[var] = true;
+			cnt++;
+		}
+		else {
+			while (--var) {
+				if (!visited[var]) {
+					visited[var] = true;
+					cnt++;
+					break;
+				}
+			}
+			if (var == 0)
+				break;
+		}/*
+		 
+		for (int j = 0; j < g + 1; j++) {
+			cout << visited[j] << " ";
+		}
+		cout << endl;*/
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+10775 공항
+비행기의 번호가 게이트 번호보다 크거나 같으면 들어갈 수 있다.
+더 작은 수가 있을 수 있으니 숫자에 맞게 배치하거나 공항이 차있으면 그 아래 배치
+본인과 같거나 작은 숫자들중 비어있는 숫자 중 제일 큰 숫자에 넣어야한다.
+
+4 6
+2 2 3 3 4 4
+4 8
+1 2 3 
+*/
