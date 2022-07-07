@@ -55,3 +55,54 @@ int main() {
 4 8
 1 2 3 
 */
+#include<iostream>
+
+using namespace std;
+
+int par[100001];
+bool finish = false;
+
+int find_parent(int x) {
+	if (par[x] == x) return x;
+	return par[x] = find_parent(par[x]);
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int gate, airplane, val, cnt = 0;
+
+	cin >> gate >> airplane;
+
+	for (int i = 1; i <= gate; i++)
+		par[i] = i;
+
+	for (int i = 0; i < airplane; i++) {
+		cin >> val;
+		if (finish) continue;
+		int idx = find_parent(val);
+		if (idx == 0)
+			finish = true;
+		else {
+			cnt++;
+			par[idx] = idx - 1;
+		}
+	}
+
+	cout << cnt;
+
+	return 0;
+}
+/*
+10775 공항
+비행기의 번호가 게이트 번호보다 크거나 같으면 들어갈 수 있다.
+더 작은 수가 있을 수 있으니 숫자에 맞게 배치하거나 공항이 차있으면 그 아래 배치
+본인과 같거나 작은 숫자들중 비어있는 숫자 중 제일 큰 숫자에 넣어야한다.
+문자열을 게이트 갯수만큼 본인의 숫자로 채우고 사용된 게이트는 -1을 하여 재귀를 통해 아래를 찾아가도록 만든다.
+4 6
+2 2 3 3 4 4
+4 8
+1 2 3 
+*/
