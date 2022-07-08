@@ -1,0 +1,42 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n, m;
+	long long var, ans = 0;
+	priority_queue<long long, vector<long long>, greater<long long> > pq;
+
+	cin >> n >> m;
+
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		pq.push(var);
+	}
+
+	for (int i = 0; i < m; i++) {
+		var = pq.top();
+		pq.pop();
+		var += pq.top();
+		pq.pop();
+		pq.push(var);
+		pq.push(var);
+	}
+
+	for (int i = 0; i < n; i++) {
+		ans += pq.top();
+		pq.pop();
+	}
+
+	cout << ans;
+
+	return 0;
+}
+/*
+15903 카드 합체 놀이
+*/
