@@ -1,0 +1,48 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	priority_queue<int> sen;
+	priority_queue<int, vector<int>, greater<int> > dist;
+
+	int n, k, var, ans = 0;
+
+	cin >> n >> k;
+
+	if (k >= n) {
+		cout << "0";
+		return 0;
+	}
+
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		sen.push(var);
+	}
+
+	for (int i = 0; i < n - 1; i++) {
+		var = sen.top();
+		sen.pop();
+		var -= sen.top();
+		dist.push(var);
+	}
+
+	for (int i = 0; i < n - k; i++) {
+		ans += dist.top();
+		dist.pop();
+	}
+
+	cout << ans;
+
+	return 0;
+}
+/*
+2212 센서
+1. 센서의 거리를 다 내림차순 priority queue에 넣고 순차적으로 수의 차를 구해서 오름차순 priority queue에 넣는다.
+2. (센서 갯수 - 집중국 갯수)의 수 만큼 작은 수들을 빼서 더 해준다.
+*/
