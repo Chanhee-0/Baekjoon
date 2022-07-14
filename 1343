@@ -106,8 +106,7 @@ int main() {
 		if (s[i] == 'X') {
 			n++;
 			if (i == s.size() - 1) {
-				if (func())
-					return 0;
+				if (func()) return 0;
 			}
 		}
 		else if (s[i] == '.') {
@@ -115,8 +114,7 @@ int main() {
 				r += c;
 				continue;
 			}
-			if (func())
-				return 0;
+			if (func()) return 0;
 			r += c;
 			n = 0;
 		}
