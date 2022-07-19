@@ -1,0 +1,35 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int n, dice[6], three = 0, two = 0;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> n;
+	cin >> dice[0] >> dice[1] >> dice[4] >> dice[5] >> dice[3] >> dice[2];
+
+	for (int i = 0; i < 3; i++) {
+		three = (dice[i] + dice[i + 1] + dice[4] < three) ? (dice[i] + dice[i + 1] + dice[4]) : three;
+		three = (dice[i] + dice[i + 1] + dice[5] < three) ? (dice[i] + dice[i + 1] + dice[5]) : three;
+		two = ;
+	}
+
+	
+	cout << "1";
+
+	return 0;
+}
+/*
+1041 주사위
+ D       4       5
+EABF -> 5126 -> 1234
+ C       3       6
+1. 3개짜리인 꼭짓점은 무조건 4개
+2. 모서리는 맨아래 4개에 2일때 4개, 3일때 8개 = ((n-1)*4) + 4
+3. 이렇게 세면이 작은거 두면이 작은거 한면이 제일 작은거 찾아서 공식대입
+*/
