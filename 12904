@@ -1,0 +1,71 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int n = 0, tstart = 0, tend;
+bool rever = false;
+string s, t;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> s >> t;
+
+	tend = t.size() - 1;
+	n = s.size() - 1;
+	while (n < (tend - tstart)) {
+		if (!rever) {
+			if (t[tend] == 'A') {
+				tend--;
+			}
+			else if (t[tend] == 'B') {
+				tend--;
+				rever = true;
+			}
+			else {
+				cout << "0";
+				return 0;
+			}
+		}
+		else {
+			if (t[tstart] == 'A') {
+				tstart++;
+			}
+			else if (t[tstart] == 'B') {
+				tstart++;
+				rever = false;
+			}
+			else {
+				cout << "0";
+				return 0;
+			}
+		}
+	}
+	if (!rever) {
+		for (int i = 0; i < s.size(); i++) {
+			if (s[i] != t[tstart + i]) {
+				cout << "0";
+				return 0;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < s.size(); i++) {
+			if (s[i] != t[tend - i]) {
+				cout << "0";
+				return 0;
+			}
+		}
+	}
+	cout << "1";
+
+	return 0;
+}
+/*
+1.T에서 A와 B를 빼주며 S로 만드는 작업을 진행한다.
+2.T의 뒤에 A나 B가 있다면 지정했던 T의 끝을 하나 내려주고 B라면 bool함수를 true로 바꿔 반대라는 것을 나타낸다.
+3.모든 작업이 끝난 뒤 마지막에 bool함수를 보고 뒤집어져 있다면 검사도 반대로 진행한다.
+*/
