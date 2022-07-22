@@ -1,9 +1,11 @@
 #include<iostream>
-#include<string>
+#include<queue>
 
 using namespace std;
 
-int n, dice[6], three = 0, two = 0;
+long long n, dice[6];
+long long sum = 0;
+priority_queue<int, vector<int>, greater<int> > three, two, one;
 
 int main() {
 	ios::sync_with_stdio(false);
@@ -13,23 +15,59 @@ int main() {
 	cin >> n;
 	cin >> dice[0] >> dice[1] >> dice[4] >> dice[5] >> dice[3] >> dice[2];
 
-	for (int i = 0; i < 3; i++) {
-		three = (dice[i] + dice[i + 1] + dice[4] < three) ? (dice[i] + dice[i + 1] + dice[4]) : three;
-		three = (dice[i] + dice[i + 1] + dice[5] < three) ? (dice[i] + dice[i + 1] + dice[5]) : three;
-		two = ;
-	}
+	for (int i = 0; i < 6; i++)
+		one.push(dice[i]);
+	if (n == 1) {
+		for (int i = 0; i < 5; i++) {
+			sum += one.top();
+			one.pop();
+		}
+		cout << sum;
 
-	
-	cout << "1";
+		return 0;
+	}
+	for (int i = 0; i < 3; i++) {
+		sum = dice[i] + dice[i + 1] + dice[4];
+		three.push(sum);
+		sum = dice[i] + dice[i + 1] + dice[5];
+		three.push(sum);
+		sum = dice[i] + dice[i + 1];
+		two.push(sum);
+		sum = dice[i] + dice[4];
+		two.push(sum);
+		sum = dice[i] + dice[5];
+		two.push(sum);
+	}
+	sum = dice[0] + dice[3] + dice[4];
+	three.push(sum);
+	sum = dice[0] + dice[3] + dice[5];
+	three.push(sum);
+	sum = dice[0] + dice[3];
+	two.push(sum);
+	sum = dice[3] + dice[4];
+	two.push(sum);
+	sum = dice[3] + dice[5];
+	two.push(sum);
+
+	sum = three.top() * 4;
+	sum += (((n - 1) * 4) + ((n - 2) * 4)) * two.top();
+	sum += (((n - 1) * (n - 2)) * 4 + (n - 2) * (n - 2)) * one.top();
+
+	cout << sum;
 
 	return 0;
 }
 /*
 1041 주사위
- D       4       5
-EABF -> 5126 -> 1234
- C       3       6
-1. 3개짜리인 꼭짓점은 무조건 4개
-2. 모서리는 맨아래 4개에 2일때 4개, 3일때 8개 = ((n-1)*4) + 4
-3. 이렇게 세면이 작은거 두면이 작은거 한면이 제일 작은거 찾아서 공식대입
+ D       4       4
+EABF -> 5126 -> 0123
+ C       3       5
+1. 경우의 수 구해서 프큐에 삽입
+2. 3개짜리인 꼭짓점은 무조건 4개
+3. 모서리는 맨아래 4개에 2일때 4개, 3일때 8개 = (((n - 1) * 4) + ((n - 2) * 4))
+4.한개인거는 3일때 9((n-1)*(n-2)) * 4 + (n-2)*(n-2), 4일때 28
+5. n이 1일때를 제외하고 각각의 면의 갯수에 프큐탑 곱해준다.
+3 4 5
+2 6 12
+1 4 9
 */
