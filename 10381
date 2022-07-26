@@ -1,0 +1,41 @@
+#include<iostream>
+#include<set>
+
+using namespace std;
+
+int n, var;
+multiset <int> ms;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		ms.insert(var);
+	}
+	var = n / 2;
+	if (n % 2 == 0)
+		var--;
+	auto iter = ms.begin();
+	for (int i = 0; i < var; i++)
+		iter++;
+	
+	cout << *iter;
+
+	return 0;
+}
+/*
+10381 안테나
+1. 제일 가운데 숫자 짝수면 앞에거
+1 2 5 7 9
+2  1 0 3 5 7  16
+5  4 3 0 2 4  13
+7  6 5 2 0 2  15
+1 2 3 8 20
+2  1 0 1 6 18  26
+3  2 1 0 5 17  25
+8  7 6 5 0 12  30
+*/
