@@ -50,7 +50,7 @@ int main() {
 		for (int i = 0; i < n; i += m) {
 			ans += v[i] * 2;
 		}
-		ans -= v[0];
+		ans -= abs(v[0]);
 	}
 	else {
 		for (int i = n - 1; i >= mn; i -= m) {
@@ -64,6 +64,82 @@ int main() {
 		}
 		else {
 			ans -= v[n - 1];
+		}
+	}
+
+	cout << ans;
+
+	return 0;
+}
+/*
+1461 도서관
+*/
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int n, m, var, mn = 0, pn = 0, po, ans = 0;
+vector<int> v;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		cin >> var;
+		if (var > 0)
+			pn++;
+		else
+			mn++;
+		v.push_back(var);
+	}
+	sort(v.begin(), v.end());
+	
+	if (m >= n) {
+		if (mn == 0) {
+			cout << v[n - 1];
+			return 0;
+		}
+		else if (pn == 0) {
+			cout << abs(v[0]);
+			return 0;
+		}
+		if (abs(v.front()) > abs(v.back())) {
+			ans += (v.back() * 2) + abs(v.front());
+		}
+		else {
+			ans += abs(v.front()) * 2 + v.back();
+		}
+	}
+	else if (mn == 0) {
+		for (int i = n - 1; i >= 0; i -= m) {
+			ans += v[i] * 2;
+		}
+		ans -= v.back();
+	}
+	else if (pn == 0) {
+		for (int i = 0; i < n; i += m) {
+			ans += v[i] * 2;
+		}
+		ans -= abs(v.front());
+	}
+	else {
+		for (int i = n - 1; i >= mn; i -= m) {
+			ans += v[i] * 2;
+		}
+		for (int i = 0; i < mn; i += m) {
+			ans += abs(v[i]) * 2;
+		}
+		if (abs(v[0]) > abs(v.back())) {
+			ans -= abs(v.front());
+		}
+		else {
+			ans -= v.back();
 		}
 	}
 
